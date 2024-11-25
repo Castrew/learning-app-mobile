@@ -1,12 +1,13 @@
 import { StyleSheet } from "react-native";
 
-import HomeScreen from "@/components/HomeScreen";
 import { View } from "tamagui";
 
-export default function TabOneScreen() {
+import { TreatmentCard } from "@/components/TreatmentCard";
+
+export default function TabTwoScreen() {
   return (
     <View w="100vw" h="100%">
-      <HomeScreen />
+      <TreatmentCard />
     </View>
   );
 }
