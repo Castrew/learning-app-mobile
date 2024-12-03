@@ -51,11 +51,14 @@ export default function RootLayout() {
   return <RootLayoutNav />;
 }
 
+//root->drawer->tabs->stacks
+
 function RootLayoutNav() {
   return (
     <Providers>
       <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> */}
+        <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
         <Stack.Screen name="modal" options={{ presentation: "modal" }} />
       </Stack>
     </Providers>

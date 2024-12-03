@@ -45,8 +45,12 @@ const StaffList = ({ navigation }) => {
                   elevate={true}
                   backgroundColor={field.value === member.id ? "pink" : "gray"}
                   onPress={() => {
+                    const JSONmember = JSON.stringify(member);
                     field.onChange(member.id);
-                    navigation.navigate("Select treatments", { member });
+                    router.push({
+                      pathname: "/(drawer)/(stack)/TreatmentList",
+                      params: { member: JSON.stringify(member) },
+                    });
                   }}
                 >
                   <Image
@@ -59,7 +63,7 @@ const StaffList = ({ navigation }) => {
                     source={
                       // treatment.image
                       //   ? { uri: treatment.image }:
-                      require("../assets/images/not-available.jpg")
+                      require("../../../../assets/images/not-available.jpg")
                     }
                     resizeMode="cover"
                   />

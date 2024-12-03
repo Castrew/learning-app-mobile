@@ -1,5 +1,5 @@
 import { YStack, XStack, Text, View, Stack } from "tamagui";
-import { Button } from "../components/tamagui/Button";
+import { Button } from "../../../../components/tamagui/Button";
 import { useEffect, useState } from "react";
 import moment from "moment";
 import { useFormContext } from "react-hook-form";
@@ -16,9 +16,10 @@ import {
   WORKING_DAYS,
   WORKING_HOURS,
   DURATION_TIME,
-} from "../constants/schedule";
+} from "../../../../constants/schedule";
 import { useCreateAppointment } from "@/core/react-query/appointments/hooks/useCreateAppointment";
-import { FormValues } from "@/app/(tabs)/BookingScreens";
+import { FormValues } from "./_layout";
+import { useLocalSearchParams } from "expo-router";
 
 const Calendar = ({ route }) => {
   const [selectedSlot, setSelectedSlot] = useState("");
@@ -27,16 +28,16 @@ const Calendar = ({ route }) => {
 
   const createAppointment = useCreateAppointment();
   const { data, isLoading } = useGetAllAppointments();
-  const { member } = route.params || [];
-
+  const { member } = useLocalSearchParams();
+  const parsedMember = JSON.parse(member as string);
   const { watch, setValue, handleSubmit } = useFormContext<FormValues>();
   const appt = watch();
 
   const memberAppointments = data?.filter((appt: Appointment) => {
-    return appt.staffId === member.id;
+    return appt.staffId === parsedMember.id;
   });
 
-  const totalDuration = member.treatments
+  const totalDuration = parsedMember.treatments
     ?.filter((treatment: Treatment) => appt.treatmentIds.includes(treatment.id))
     .map((treatment: Treatment) => treatment.duration)
     .reduce((sum: number, duration: string) => sum + parseInt(duration), 0);
@@ -70,6 +71,7 @@ const Calendar = ({ route }) => {
 
   const nextOrPreviousDay = (n: number) => {
     const newDay = currentDay.clone().add(n, "day");
+    setSelectedSlot("");
     setCurrentDay(newDay);
   };
 

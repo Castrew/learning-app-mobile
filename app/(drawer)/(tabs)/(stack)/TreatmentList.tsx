@@ -1,12 +1,17 @@
-import { Checkbox, YStack, XStack, Label, View, Button } from "tamagui";
+import { Checkbox, YStack, XStack, Label, View } from "tamagui";
+import { Button } from "@/components/tamagui/Button";
 import { Controller, useFormContext } from "react-hook-form";
 import { Check as CheckIcon } from "@tamagui/lucide-icons";
 import { Treatment } from "@/core/react-query/treatments/types";
+import { useLocalSearchParams, useRouter } from "expo-router";
 
 const TreatmentsList = ({ route, navigation }) => {
-  const { control } = useFormContext();
-  const { member } = route.params || [];
-  const treatment: Treatment[] = member.treatments;
+  const router = useRouter();
+  const { control, watch } = useFormContext();
+  const { member } = useLocalSearchParams();
+  const parsedMember = JSON.parse(member as string);
+  const isTreatmentSelected = watch("treatmentIds").length;
+  const treatment: Treatment[] = parsedMember.treatments;
 
   return (
     <View>
@@ -37,7 +42,13 @@ const TreatmentsList = ({ route, navigation }) => {
         ))}
       </YStack>
       <Button
-        onPress={() => navigation.navigate("Select date and time", { member })}
+        disabled={isTreatmentSelected === 0}
+        onPress={() =>
+          router.push({
+            pathname: "/(drawer)/(stack)/Calendar",
+            params: { member },
+          })
+        }
       >
         asd
       </Button>
