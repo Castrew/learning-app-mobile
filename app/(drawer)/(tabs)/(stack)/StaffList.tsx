@@ -12,11 +12,11 @@ const StaffList = () => {
   const router = useRouter();
   const navigation = useNavigation();
 
+  useEffect(() => navigation.setOptions({ headerShown: true }), []);
+
   if (isLoading) {
     return <Text>Loading...</Text>;
   }
-
-  useEffect(() => navigation.setOptions({ headerShown: true }), []);
 
   return (
     <LinearGradient>
