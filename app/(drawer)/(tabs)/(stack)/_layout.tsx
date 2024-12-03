@@ -1,11 +1,8 @@
 import { View } from "tamagui";
 
-import StaffList from "@/components/StaffList";
-import TreatmentsList from "@/components/TreatmentList";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { FormProvider, useForm } from "react-hook-form";
-import Calendar from "@/components/Calendar";
 import { Button } from "@/components/tamagui/Button";
+import { Stack } from "expo-router";
 
 export interface FormValues {
   staffId: string;
@@ -24,21 +21,20 @@ export default function TabTwoScreen() {
     },
   });
 
-  // console.log(formContext.watch());
+  console.log(formContext.watch());
 
-  const Stack = createNativeStackNavigator();
   return (
     <View w="100vw" h="100%">
       <FormProvider {...formContext}>
-        <Stack.Navigator>
+        <Stack>
           <Stack.Screen
-            name="Select worker"
-            component={StaffList}
+            name="StaffList"
+            // component={StaffList}
             options={{ headerShown: false }}
           />
           <Stack.Screen
-            name="Select treatments"
-            component={TreatmentsList}
+            name="TreatmentList"
+            // component={TreatmentsList}
             options={({ navigation }) => ({
               headerLeft: (props) => (
                 <Button
@@ -53,8 +49,8 @@ export default function TabTwoScreen() {
             })}
           />
           <Stack.Screen
-            name="Select date and time"
-            component={Calendar}
+            name="Calendar"
+            // component={Calendar}
             options={({ navigation }) => ({
               headerLeft: (props) => (
                 <Button
@@ -69,7 +65,7 @@ export default function TabTwoScreen() {
               ),
             })}
           />
-        </Stack.Navigator>
+        </Stack>
       </FormProvider>
     </View>
   );

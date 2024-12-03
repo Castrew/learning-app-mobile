@@ -6,6 +6,9 @@ import { Pressable } from "react-native";
 import Colors from "@/constants/Colors";
 import { useColorScheme } from "@/components/useColorScheme";
 import { useClientOnlyValue } from "@/components/useClientOnlyValue";
+import { Button } from "tamagui";
+import { AlignLeft } from "@tamagui/lucide-icons";
+import { useRouter } from "expo-router";
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
@@ -29,7 +32,7 @@ export default function TabLayout() {
     >
       <Tabs.Screen
         name="index"
-        options={{
+        options={({ navigation }) => ({
           title: "Home",
           headerTintColor: "pink",
           // headerShown: false,
@@ -48,7 +51,12 @@ export default function TabLayout() {
               </Pressable>
             </Link>
           ),
-        }}
+          headerLeft: () => (
+            <Button onPress={() => navigation.toggleDrawer()}>
+              <AlignLeft />
+            </Button>
+          ),
+        })}
       />
       <Tabs.Screen
         name="Treatments"
@@ -58,9 +66,10 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="BookingScreen"
+        name="(stack)"
         options={{
           title: "Booking",
+          headerShown: false,
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />
