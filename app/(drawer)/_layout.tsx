@@ -1,5 +1,6 @@
 import { Drawer } from "expo-router/drawer";
 import { Home } from "@tamagui/lucide-icons";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function DrawerLayout() {
   return (

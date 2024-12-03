@@ -20,6 +20,7 @@ import {
 import { useCreateAppointment } from "@/core/react-query/appointments/hooks/useCreateAppointment";
 import { FormValues } from "./_layout";
 import { useLocalSearchParams } from "expo-router";
+import { LinearGradient } from "@/components/expo/LinearGradient";
 
 const Calendar = ({ route }) => {
   const [selectedSlot, setSelectedSlot] = useState("");
@@ -143,78 +144,80 @@ const Calendar = ({ route }) => {
   }, [currentDay]);
 
   return (
-    <View flexDirection="column" width="100%" padding={20}>
-      <View
-        alignItems="center"
-        flexDirection="row"
-        justifyContent="space-between"
-        marginBottom={20}
-      >
-        <Button
-          onPress={() => nextOrPreviousWeek(-1)}
-          disabled={currentWeek.isSame(moment().startOf("week"), "week")}
-          icon={ChevronsLeft}
-        />
-        <Button
-          disabled={isDayInPast() || currentDay.format("dddd") === "Monday"}
-          onPress={() => nextOrPreviousDay(-1)}
-          icon={ChevronLeft}
-        />
-        <Text>
-          {currentDay.format("dddd")}
-          {currentWeek.day(currentDay.format("dddd")).format("MM-DD-YYYY")}
-        </Text>
-        <Button
-          disabled={currentDay.format("dddd") === "Friday"}
-          onPress={() => nextOrPreviousDay(1)}
-          icon={ChevronRight}
-        />
-        <Button onPress={() => nextOrPreviousWeek(1)} icon={ChevronsRight} />
+    <LinearGradient>
+      <View flexDirection="column" width="100%" padding={20}>
+        <View
+          alignItems="center"
+          flexDirection="row"
+          justifyContent="space-between"
+          marginBottom={20}
+        >
+          <Button
+            onPress={() => nextOrPreviousWeek(-1)}
+            disabled={currentWeek.isSame(moment().startOf("week"), "week")}
+            icon={ChevronsLeft}
+          />
+          <Button
+            disabled={isDayInPast() || currentDay.format("dddd") === "Monday"}
+            onPress={() => nextOrPreviousDay(-1)}
+            icon={ChevronLeft}
+          />
+          <Text>
+            {currentDay.format("dddd")}
+            {currentWeek.day(currentDay.format("dddd")).format("MM-DD-YYYY")}
+          </Text>
+          <Button
+            disabled={currentDay.format("dddd") === "Friday"}
+            onPress={() => nextOrPreviousDay(1)}
+            icon={ChevronRight}
+          />
+          <Button onPress={() => nextOrPreviousWeek(1)} icon={ChevronsRight} />
+        </View>
+        <Stack
+          flexWrap="wrap"
+          flexDirection="row"
+          justifyContent="center"
+          alignItems="center"
+          gap={10}
+        >
+          {WORKING_HOURS.map((time, index) => {
+            const isBooked = isSlotBooked(time);
+            const ifFits = checkIfFits(time);
+            const isBeforeNow = isSlotBeforeNow(time);
+
+            let bgcolor = "whitesmoke";
+            if (selectedSlot === time) bgcolor = "lightgreen";
+            if (isBooked) bgcolor = "#ff8a80";
+
+            const isDisabled = isBooked || !ifFits || isBeforeNow;
+
+            return (
+              <Button
+                backgroundColor={bgcolor}
+                key={index}
+                disabled={isDisabled}
+                width="30%"
+                height={50}
+                borderRadius={10}
+                variant={selectedSlot === time ? null : "outlined"}
+                theme="active"
+                onPress={() => {
+                  setValue("start", time);
+                  setSelectedSlot(time);
+                }}
+              >
+                <Text fontSize={14} fontWeight="600">
+                  {time}
+                </Text>
+              </Button>
+            );
+          })}
+        </Stack>
+        <Button mt={20} onPress={onSubmit}>
+          Set Appointment
+        </Button>
       </View>
-      <Stack
-        flexWrap="wrap"
-        flexDirection="row"
-        justifyContent="center"
-        alignItems="center"
-        gap={10}
-      >
-        {WORKING_HOURS.map((time, index) => {
-          const isBooked = isSlotBooked(time);
-          const ifFits = checkIfFits(time);
-          const isBeforeNow = isSlotBeforeNow(time);
-
-          let bgcolor = "whitesmoke";
-          if (selectedSlot === time) bgcolor = "lightgreen";
-          if (isBooked) bgcolor = "#ff8a80";
-
-          const isDisabled = isBooked || !ifFits || isBeforeNow;
-
-          return (
-            <Button
-              backgroundColor={bgcolor}
-              key={index}
-              disabled={isDisabled}
-              width="30%"
-              height={50}
-              borderRadius={10}
-              variant={selectedSlot === time ? null : "outlined"}
-              theme="active"
-              onPress={() => {
-                setValue("start", time);
-                setSelectedSlot(time);
-              }}
-            >
-              <Text fontSize={14} fontWeight="600">
-                {time}
-              </Text>
-            </Button>
-          );
-        })}
-      </Stack>
-      <Button mt={20} onPress={onSubmit}>
-        Set Appointment
-      </Button>
-    </View>
+    </LinearGradient>
   );
 };
 
