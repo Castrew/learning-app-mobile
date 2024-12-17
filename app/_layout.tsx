@@ -13,6 +13,9 @@ import "react-native-reanimated";
 
 import { useColorScheme } from "@/components/useColorScheme";
 import Providers from "./providers";
+import { View, YStack } from "tamagui";
+import Toast from "react-native-toast-message";
+import { toastConfig } from "@/components/useToast";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -61,6 +64,7 @@ function RootLayoutNav() {
         <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
         <Stack.Screen name="modal" options={{ presentation: "modal" }} />
       </Stack>
+      <Toast config={toastConfig} />
     </Providers>
   );
 }

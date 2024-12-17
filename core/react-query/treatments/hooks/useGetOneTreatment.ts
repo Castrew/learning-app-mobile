@@ -6,6 +6,8 @@ import { Treatment } from "../types";
 export const useGetOneTreatment = (
   payload: RequestTypes["getOneTreatment"]
 ) => {
+  console.log(typeof payload.treatmentId);
+
   return useQuery<Treatment, string>({
     ...treatmentsKeys.oneTreatment(payload),
     enabled: payload.treatmentId !== "undefined",

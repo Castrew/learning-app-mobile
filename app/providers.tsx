@@ -58,7 +58,7 @@ export default function Providers({ children }) {
   return (
     <QueryClientProvider client={queryClient}>
       <TamaguiProvider config={tamaguiConfig} defaultTheme={colorScheme!}>
-        <Theme>
+        <Theme name="pink">
           {children}
           {/* <AuthContext.Provider value={user}>{children}</AuthContext.Provider> */}
           {/* <ReactQueryDevtools /> */}
