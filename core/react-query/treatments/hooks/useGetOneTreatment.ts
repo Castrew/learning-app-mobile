@@ -10,6 +10,6 @@ export const useGetOneTreatment = (
 
   return useQuery<Treatment, string>({
     ...treatmentsKeys.oneTreatment(payload),
-    enabled: payload.treatmentId !== "undefined",
+    enabled: !!payload?.treatmentId,
   });
 };
