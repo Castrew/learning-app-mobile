@@ -21,8 +21,6 @@ export default function TabTwoScreen() {
     },
   });
 
-  console.log(formContext.watch());
-
   return (
     <View w="100vw" h="100%">
       <FormProvider {...formContext}>

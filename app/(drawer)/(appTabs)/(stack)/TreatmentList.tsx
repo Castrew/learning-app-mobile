@@ -17,15 +17,16 @@ const TreatmentsList = ({ route, navigation }) => {
   return (
     <LinearGradient>
       <View>
-        <YStack space="sm">
+        <YStack width={300} alignItems="center" gap="$2">
           {treatment?.map((treatment) => (
             <Controller
               key={treatment.id}
               name="treatmentIds"
               control={control}
               render={({ field }) => (
-                <XStack alignItems="center" space="sm">
+                <XStack width={300} alignItems="center" gap="$2">
                   <Checkbox
+                    size="$4"
                     checked={field.value.includes(treatment.id)}
                     onCheckedChange={(checked) => {
                       const newValues = checked
@@ -33,10 +34,11 @@ const TreatmentsList = ({ route, navigation }) => {
                         : field.value.filter((id) => id !== treatment.id);
                       field.onChange(newValues);
                     }}
-                  />
-                  <Checkbox.Indicator>
-                    <CheckIcon />
-                  </Checkbox.Indicator>
+                  >
+                    <Checkbox.Indicator>
+                      <CheckIcon />
+                    </Checkbox.Indicator>
+                  </Checkbox>
                   <Label>{treatment.title}</Label>
                 </XStack>
               )}

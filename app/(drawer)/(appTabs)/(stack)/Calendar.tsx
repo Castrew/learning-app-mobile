@@ -12,11 +12,7 @@ import {
   ChevronsLeft,
   ChevronsRight,
 } from "@tamagui/lucide-icons";
-import {
-  WORKING_DAYS,
-  WORKING_HOURS,
-  DURATION_TIME,
-} from "../../../../constants/schedule";
+import { WORKING_HOURS } from "../../../../constants/schedule";
 import { useCreateAppointment } from "@/core/react-query/appointments/hooks/useCreateAppointment";
 import { FormValues } from "./_layout";
 import { useLocalSearchParams } from "expo-router";
@@ -129,7 +125,7 @@ const Calendar = ({ route }) => {
       onSuccess: () => {
         console.log("Appointment created successfully");
       },
-      onError: () => {
+      onError: (e) => {
         console.log("Error creating appointment");
       },
     });

@@ -10,9 +10,13 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
-
-import { useColorScheme } from "@/components/useColorScheme";
 import Providers from "./providers";
+import Toast from "react-native-toast-message";
+import { toastConfig } from "@/components/useToast";
+
+if (__DEV__) {
+  require("@/components/ReactotronConfig");
+}
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -51,8 +55,6 @@ export default function RootLayout() {
   return <RootLayoutNav />;
 }
 
-//root->drawer->tabs->stacks
-
 function RootLayoutNav() {
   return (
     <Providers>
@@ -61,6 +63,7 @@ function RootLayoutNav() {
         <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
         <Stack.Screen name="modal" options={{ presentation: "modal" }} />
       </Stack>
+      <Toast config={toastConfig} />
     </Providers>
   );
 }
