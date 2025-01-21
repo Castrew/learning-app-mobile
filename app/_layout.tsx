@@ -10,12 +10,13 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
-
-import { useColorScheme } from "@/components/useColorScheme";
 import Providers from "./providers";
-import { View, YStack } from "tamagui";
 import Toast from "react-native-toast-message";
 import { toastConfig } from "@/components/useToast";
+
+if (__DEV__) {
+  require("@/components/ReactotronConfig");
+}
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -53,8 +54,6 @@ export default function RootLayout() {
 
   return <RootLayoutNav />;
 }
-
-//root->drawer->tabs->stacks
 
 function RootLayoutNav() {
   return (

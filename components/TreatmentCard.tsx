@@ -18,10 +18,13 @@ import { Button } from "./tamagui/Button";
 import { EllipsisVertical } from "@tamagui/lucide-icons";
 import { useDeleteTreatment } from "@/core/react-query/treatments/hooks/useDeleteTreatment";
 import { useRouter } from "expo-router";
+import RenderHtml from "react-native-render-html";
+import { useWindowDimensions } from "react-native";
 
 export const TreatmentCard = () => {
   const { data, isLoading } = useGetAllTreatments();
   const deleteTreatment = useDeleteTreatment();
+  const { width } = useWindowDimensions();
 
   const router = useRouter();
   const pathname = usePathname();
@@ -137,14 +140,12 @@ export const TreatmentCard = () => {
                     ${treatment.price}
                   </Text>
                 </XStack>
-                <Text
-                  color="#666"
-                  fontSize={14}
-                  numberOfLines={3}
-                  ellipsizeMode="tail"
-                >
-                  {treatment.description}
-                </Text>
+                <View>
+                  <RenderHtml
+                    contentWidth={width}
+                    source={{ html: treatment.description }}
+                  />
+                </View>
               </View>
             </Card>
           ))}

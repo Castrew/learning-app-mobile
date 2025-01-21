@@ -1,19 +1,45 @@
 import * as WebBrowser from "expo-web-browser";
 import * as Google from "expo-auth-session/providers/google";
-import { Button } from "./tamagui/Button";
-import { useEffect, useState } from "react";
-import { View, Text } from "tamagui";
-import axios from "axios";
+import { useEffect } from "react";
+import { APIAxiosInstance } from "@/axios/api-axios-instance";
+import { saveToken } from "@/secureStoreActions";
+import { useSession } from "@/session/SessionProvier";
+import { LogIn } from "@tamagui/lucide-icons";
 
 WebBrowser.maybeCompleteAuthSession();
 
 const LoginWithGoogle = () => {
-  const [user, setUser] = useState({});
-
   const [request, response, promptAsync] = Google.useAuthRequest({
     iosClientId:
       "752351252259-1h0b5cl6ip8qjpv1dco7ha6kd6ptaljf.apps.googleusercontent.com",
   });
+
+  //
+  const googleResponse = response;
+
+  const sendUserData = async (user) => {
+    try {
+      const response = await APIAxiosInstance.post(
+        "http://localhost:3000/api/mobileAuth/user",
+        { user, googleResponse }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error occurred:", error.message);
+      console.error(
+        "Error details:",
+        error.response ? error.response.data : null
+      );
+
+      return {
+        success: false,
+        message: error.message,
+        errorDetails: error.response ? error.response.data : null,
+      };
+    }
+  };
+
+  const { login } = useSession();
 
   const getUserProfile = async (token: any) => {
     if (!token) return;
@@ -23,34 +49,30 @@ const LoginWithGoogle = () => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       const user = await response.json();
-      setUser(user);
-      // console.log(user, "user");
-    } catch (error) {
-      console.log(error);
-    }
+      const savedUser = await sendUserData(user);
+      saveToken("userToken", JSON.stringify(savedUser));
+      await login(savedUser);
+    } catch (error) {}
   };
-
-  // 8eb316bd-d983-4920-a5e4-b4e79903a598
-  // d75644f0-500b-4eaf-8fac-51babfc1490f
 
   const handleToken = () => {
     if (response?.type === "success") {
       const { authentication } = response;
       const token = authentication?.accessToken;
       getUserProfile(token);
-      // console.log("access token", authentication?.);
     }
   };
-  console.log(user);
 
-  useEffect(() => handleToken(), [response]);
+  useEffect(() => {
+    handleToken();
+  }, [response]);
 
   return (
-    <View>
-      {/* <Text>{`Welcome back ${user.given_name}`}</Text> */}
-
-      <Button onPress={() => promptAsync()}>Login with Google</Button>
-    </View>
+    <LogIn
+      marginRight={20}
+      color={"$blue10Light"}
+      onPress={() => promptAsync()}
+    ></LogIn>
   );
 };
 
