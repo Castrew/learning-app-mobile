@@ -5,12 +5,11 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
-// import { AuthContext } from "@/providers/AuthProvider";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { TamaguiProvider, Theme } from "tamagui";
 import { tamaguiConfig } from "../tamagui.config";
 import { useColorScheme } from "@/components/useColorScheme";
 import moment from "moment";
+import { SessionProvider } from "@/session/SessionProvier";
 
 function makeQueryClient() {
   return new QueryClient({
@@ -56,14 +55,16 @@ export default function Providers({ children }) {
   const queryClient = getQueryClient();
   const colorScheme = useColorScheme();
   return (
-    <QueryClientProvider client={queryClient}>
-      <TamaguiProvider config={tamaguiConfig} defaultTheme={colorScheme!}>
-        <Theme>
-          {children}
-          {/* <AuthContext.Provider value={user}>{children}</AuthContext.Provider> */}
-          {/* <ReactQueryDevtools /> */}
-        </Theme>
-      </TamaguiProvider>
-    </QueryClientProvider>
+    <SessionProvider>
+      <QueryClientProvider client={queryClient}>
+        <TamaguiProvider config={tamaguiConfig} defaultTheme={colorScheme!}>
+          <Theme name="pink">
+            {children}
+            {/* <AuthContext.Provider value={user}>{children}</AuthContext.Provider> */}
+            {/* <ReactQueryDevtools /> */}
+          </Theme>
+        </TamaguiProvider>
+      </QueryClientProvider>
+    </SessionProvider>
   );
 }

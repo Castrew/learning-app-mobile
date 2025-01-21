@@ -1,25 +1,8 @@
-"use client";
-
 import React from "react";
-import { StyleSheet } from "react-native";
-import {
-  Image,
-  ScrollView,
-  SizableText,
-  styled,
-  Paragraph,
-  Text,
-  View,
-  YStack,
-} from "tamagui";
-
-import Colors from "@/constants/Colors";
-import { useGetAllTreatments } from "@/core/react-query/treatments/hooks/useGetAllTreatmets";
+import { Image, ScrollView, Paragraph, Text, View, YStack } from "tamagui";
 import { LinearGradient } from "./expo/LinearGradient";
 
 const HomeScreen = () => {
-  const { data, isLoading } = useGetAllTreatments();
-
   return (
     <LinearGradient>
       <ScrollView h="100%">
@@ -36,16 +19,16 @@ const HomeScreen = () => {
             height={200}
           />
           <Paragraph size="$4" lineHeight="$2">
-            Ladies, if you believe that your nails are more than just partt of
+            Ladies, if you believe that your nails are more than just part of
             your look, if you see them as an extension of your personality and a
             way to express your unique style, then our studio is the perfect
             place for you!
           </Paragraph>
           <Paragraph size="$4" lineHeight="$2">
-            Our talanted team of nail artists is dedicated to providing a
+            Our talented team of nail artists is dedicated to providing a
             professional and personalized experience every time you visit. We
-            pride ourselfs on our ability to listen, understand and create
-            exactrly what you envision - whenther it is a fresh bold design that
+            pride ourselves on our ability to listen, understand, and create
+            exactly what you envision - whether it is a fresh bold design that
             lets you stand out or a refined, polished look that exudes
             sophistication!
           </Paragraph>
