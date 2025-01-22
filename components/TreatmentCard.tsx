@@ -47,7 +47,7 @@ export const TreatmentCard = () => {
       )}
       <ScrollView style={{ flex: 1, paddingHorizontal: 16 }}>
         <YStack space={20} alignItems="center" mt={10} mb={10}>
-          {data.map((treatment) => (
+          {data?.map((treatment) => (
             <Card
               key={treatment.id}
               width="100%"
