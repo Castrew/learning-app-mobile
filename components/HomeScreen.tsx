@@ -1,8 +1,10 @@
 import React from "react";
 import { Image, ScrollView, Paragraph, Text, View, YStack } from "tamagui";
 import { LinearGradient } from "./expo/LinearGradient";
+import { useSession } from "@/session/SessionProvier";
 
 const HomeScreen = () => {
+  const { user } = useSession();
   return (
     <LinearGradient>
       <ScrollView h="100%">
@@ -12,6 +14,7 @@ const HomeScreen = () => {
               POUR ELLE
             </Text>
             <Text>WHERE NAILS TELL YOUR STORY</Text>
+            <Text>{user?.name}</Text>
           </View>
           <Image
             source={require("../assets/images/logo.png")}

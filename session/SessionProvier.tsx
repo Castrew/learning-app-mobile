@@ -2,17 +2,30 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import { getToken, saveToken, deleteToken } from "@/secureStoreActions";
 
 interface User {
+  id: string;
   name: string;
+  description: string | null;
   email: string;
-  picture?: string;
-  [key: string]: any;
+  emailVerified: Date;
+  image: string;
+}
+
+interface Session {
+  sessionToken: string;
+  userId: string;
+  expires: Date;
+}
+
+interface GoogleUser {
+  user: User;
+  session: Session;
 }
 
 interface SessionContextType {
   user: User | null;
   isAuthenticated: boolean;
   loading: boolean;
-  login: (user: User) => Promise<void>;
+  login: (googleUser: GoogleUser) => Promise<void>;
   logout: () => Promise<void>;
 }
 
@@ -29,7 +42,7 @@ export const useSession = () => {
 export const SessionProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [googleUser, setGoogleUser] = useState<GoogleUser | null>(null);
   const [loading, setLoading] = useState(true);
 
   const loadSession = async () => {
@@ -37,7 +50,7 @@ export const SessionProvider: React.FC<{ children: React.ReactNode }> = ({
       const token = await getToken("userToken");
       if (token) {
         const savedUser = JSON.parse(token);
-        setUser(savedUser.user[0]);
+        setGoogleUser(savedUser);
       }
     } catch (error) {
       console.error("Error loading session:", error);
@@ -46,13 +59,13 @@ export const SessionProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
-  const login = async (user: User) => {
-    setUser(user.user[0]);
-    await saveToken("userToken", JSON.stringify(user));
+  const login = async (googleUser: GoogleUser) => {
+    setGoogleUser(googleUser);
+    await saveToken("userToken", JSON.stringify(googleUser));
   };
 
   const logout = async () => {
-    setUser(null);
+    setGoogleUser(null);
     await deleteToken("userToken");
   };
 
@@ -63,8 +76,8 @@ export const SessionProvider: React.FC<{ children: React.ReactNode }> = ({
   return (
     <SessionContext.Provider
       value={{
-        user,
-        isAuthenticated: !!user,
+        user: googleUser?.user,
+        isAuthenticated: !!googleUser,
         loading,
         login,
         logout,
