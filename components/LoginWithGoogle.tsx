@@ -49,9 +49,9 @@ const LoginWithGoogle = () => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       const user = await response.json();
-      const savedUser = await sendUserData(user);
-      saveToken("userToken", JSON.stringify(savedUser));
-      await login(savedUser);
+      const googleUser = await sendUserData(user);
+      saveToken("userToken", JSON.stringify(googleUser));
+      await login(googleUser);
     } catch (error) {}
   };
 
