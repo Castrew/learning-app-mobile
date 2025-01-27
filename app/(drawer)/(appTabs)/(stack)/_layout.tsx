@@ -3,8 +3,10 @@ import { View } from "tamagui";
 import { FormProvider, useForm } from "react-hook-form";
 import { Button } from "@/components/tamagui/Button";
 import { Stack } from "expo-router";
+import { useSession } from "@/session/SessionProvier";
 
 export interface FormValues {
+  userId: string;
   staffId: string;
   treatmentIds: string[];
   date: string;
@@ -12,8 +14,10 @@ export interface FormValues {
 }
 
 export default function TabTwoScreen() {
+  const { user } = useSession();
   const formContext = useForm<FormValues>({
     defaultValues: {
+      userId: user?.id,
       staffId: "",
       treatmentIds: [],
       date: "",
@@ -25,14 +29,9 @@ export default function TabTwoScreen() {
     <View w="100vw" h="100%">
       <FormProvider {...formContext}>
         <Stack>
-          <Stack.Screen
-            name="StaffList"
-            // component={StaffList}
-            options={{ headerShown: false }}
-          />
+          <Stack.Screen name="StaffList" options={{ headerShown: false }} />
           <Stack.Screen
             name="TreatmentList"
-            // component={TreatmentsList}
             options={({ navigation }) => ({
               headerLeft: (props) => (
                 <Button
@@ -48,7 +47,6 @@ export default function TabTwoScreen() {
           />
           <Stack.Screen
             name="Calendar"
-            // component={Calendar}
             options={({ navigation }) => ({
               headerLeft: (props) => (
                 <Button
