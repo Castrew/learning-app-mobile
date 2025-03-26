@@ -27,6 +27,14 @@ type LocalSearchParamsProps = {
   treatmentId: string;
 };
 
+export interface FormValues {
+  userId: string;
+  title: string;
+  duration: string;
+  price: string;
+  description: string;
+}
+
 export const CreateUpdateTreatment = () => {
   const { treatmentId } = useLocalSearchParams<LocalSearchParamsProps>();
   const updateTreatment = useUpdateTreatment();
@@ -51,7 +59,7 @@ export const CreateUpdateTreatment = () => {
     control,
     watch,
     formState: { errors },
-  } = useForm<Treatment>({
+  } = useForm<FormValues>({
     defaultValues,
   });
 
@@ -69,19 +77,17 @@ export const CreateUpdateTreatment = () => {
     treatment?.title,
   ]);
 
-  const onSubmit: SubmitHandler<Treatment> = (data) => {
-    console.log("tuk");
-
+  const onSubmit: SubmitHandler<FormValues> = (data) => {
     if (treatment?.id) {
       updateTreatment.mutate(
         { treatmentId: treatment?.id, ...data },
         {
           onSuccess: () => {
-            SuccessToast("Brao e tonka za update");
+            SuccessToast("Treatment updated");
             router.back();
           },
-          onError: () => {
-            SuccessToast("Brao e tonka za update");
+          onError: (e) => {
+            SuccessToast(`Error ${e}`);
 
             router.back();
           },
@@ -92,11 +98,13 @@ export const CreateUpdateTreatment = () => {
         { ...data },
         {
           onSuccess: () => {
-            SuccessToast("Brao e tonka za create");
+            SuccessToast("Treatment created");
             reset();
             router.back();
           },
           onError: (e) => {
+            SuccessToast(`Error ${e}`);
+
             router.back();
           },
         }
@@ -259,7 +267,7 @@ export const CreateUpdateTreatment = () => {
                   borderRadius={10}
                   flex={1}
                   marginHorizontal={5}
-                  onPress={() => console.log("Cancel")}
+                  onPress={() => router.back()}
                 >
                   Cancel
                 </Button>

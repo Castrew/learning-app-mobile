@@ -25,6 +25,7 @@ interface SessionContextType {
   user: User | null;
   isAuthenticated: boolean;
   loading: boolean;
+  expires: Date;
   login: (googleUser: GoogleUser) => Promise<void>;
   logout: () => Promise<void>;
 }
@@ -78,6 +79,7 @@ export const SessionProvider: React.FC<{ children: React.ReactNode }> = ({
       value={{
         user: googleUser?.user,
         isAuthenticated: !!googleUser,
+        expires: googleUser?.session.expires,
         loading,
         login,
         logout,
