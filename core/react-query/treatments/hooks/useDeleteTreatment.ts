@@ -10,7 +10,7 @@ export const useDeleteTreatment = () => {
     ...treatmentsMutationsKeys.deleteTreatment,
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({
-        queryKey: treatmentsKeys.allTreatments._def,
+        queryKey: treatmentsKeys.allTreatments().queryKey,
       });
     },
   });

@@ -27,7 +27,7 @@ export interface RequestTypes {
     treatmentIds: string[];
     date: string;
     start: string;
-    testId?: string;
+    userId: string;
   };
   paginatedAppointments: {
     page: string;

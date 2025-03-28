@@ -1,6 +1,0 @@
-module Pods_learningappmobile {
-  umbrella header "Pods-learningappmobile-umbrella.h"
-
-  export *
-  module * { export * }
-}
