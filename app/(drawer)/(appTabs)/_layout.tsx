@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Tabs } from "expo-router";
 import Colors from "@/constants/Colors";
@@ -8,6 +8,7 @@ import { Button, View } from "tamagui";
 import { AlignLeft, LogOut } from "@tamagui/lucide-icons";
 import { useSession } from "@/session/SessionProvier";
 import LoginWithGoogle from "@/components/LoginWithGoogle";
+import moment from "moment";
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
@@ -19,10 +20,20 @@ function TabBarIcon(props: {
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-  const { user, logout, isAuthenticated } = useSession();
+  const { user, logout, expires } = useSession();
+  const condition = moment().isAfter(moment(expires));
+
+  useEffect(() => {
+    if (condition) {
+      logout();
+    }
+  }, []);
+
   return (
     <Tabs
       screenOptions={{
+        headerStyle: { backgroundColor: "#F9D1D1" },
+        tabBarStyle: { backgroundColor: "#D1E0F9" },
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
         // Disable the static render of the header on web
         // to prevent a hydration error in React Navigation v6.
@@ -33,7 +44,6 @@ export default function TabLayout() {
         name="index"
         options={({ navigation }) => ({
           title: "Home",
-          headerTintColor: "pink",
           // headerShown: false,
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
           headerRight: () => {

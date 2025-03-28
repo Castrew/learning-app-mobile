@@ -76,7 +76,6 @@ export const appointmentsMutationsKeys = createMutationKeys("appointments", {
   createAppointment: {
     mutationKey: null,
     mutationFn: async (payload: RequestTypes["createAppointment"]) => {
-      payload.testId = "26o27wdabj7fbyc";
       const { data } = await APIAxiosInstance.post(`/appointments`, payload);
       return data;
     },

@@ -19,16 +19,13 @@ import { EllipsisVertical } from "@tamagui/lucide-icons";
 import { useDeleteTreatment } from "@/core/react-query/treatments/hooks/useDeleteTreatment";
 import { useRouter } from "expo-router";
 import RenderHtml from "react-native-render-html";
-import { useWindowDimensions } from "react-native";
 
 export const TreatmentCard = () => {
   const { data, isLoading } = useGetAllTreatments();
   const deleteTreatment = useDeleteTreatment();
-  const { width } = useWindowDimensions();
 
   const router = useRouter();
   const pathname = usePathname();
-  console.log(pathname);
 
   if (isLoading) {
     return <Text>Loading...</Text>;
@@ -39,7 +36,9 @@ export const TreatmentCard = () => {
       {pathname === "/admin" && (
         <View p={10} mt={10}>
           <Button
-            onPress={() => router.push("/admin/(adminTabs)/treatments/create")}
+            onPress={() =>
+              router.push("/(drawer)/admin/(adminTabs)/treatments/create")
+            }
           >
             Create new treatment
           </Button>
@@ -141,10 +140,10 @@ export const TreatmentCard = () => {
                   </Text>
                 </XStack>
                 <View>
-                  <RenderHtml
+                  {/* <RenderHtml
                     contentWidth={width}
                     source={{ html: treatment.description }}
-                  />
+                  /> */}
                 </View>
               </View>
             </Card>
