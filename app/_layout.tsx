@@ -55,7 +55,12 @@ function RootLayoutNav() {
     <Providers>
       <Stack>
         {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> */}
-        <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="(drawer)"
+          options={{
+            headerShown: false,
+          }}
+        />
         <Stack.Screen name="modal" options={{ presentation: "modal" }} />
       </Stack>
       <Toast config={toastConfig} />

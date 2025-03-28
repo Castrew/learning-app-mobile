@@ -28,7 +28,11 @@ export default function TabTwoScreen() {
   return (
     <View w="100vw" h="100%">
       <FormProvider {...formContext}>
-        <Stack>
+        <Stack
+          screenOptions={{
+            headerStyle: { backgroundColor: "#F9D1D1" },
+          }}
+        >
           <Stack.Screen name="StaffList" options={{ headerShown: false }} />
           <Stack.Screen
             name="TreatmentList"

@@ -79,7 +79,7 @@ export const SessionProvider: React.FC<{ children: React.ReactNode }> = ({
       value={{
         user: googleUser?.user,
         isAuthenticated: !!googleUser,
-        expires: googleUser?.session.expires,
+        expires: googleUser?.session?.expires,
         loading,
         login,
         logout,

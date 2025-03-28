@@ -32,6 +32,8 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
+        headerStyle: { backgroundColor: "#F9D1D1" },
+        tabBarStyle: { backgroundColor: "#D1E0F9" },
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
         // Disable the static render of the header on web
         // to prevent a hydration error in React Navigation v6.
@@ -42,7 +44,6 @@ export default function TabLayout() {
         name="index"
         options={({ navigation }) => ({
           title: "Home",
-          headerTintColor: "pink",
           // headerShown: false,
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
           headerRight: () => {

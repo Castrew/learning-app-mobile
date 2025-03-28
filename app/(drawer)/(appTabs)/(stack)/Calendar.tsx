@@ -158,7 +158,7 @@ const Calendar = ({ route }) => {
             onPress={() => nextOrPreviousDay(-1)}
             icon={ChevronLeft}
           />
-          <Text>
+          <Text color="black">
             {currentDay.format("dddd")}
             {currentWeek.day(currentDay.format("dddd")).format("MM-DD-YYYY")}
           </Text>
@@ -202,7 +202,7 @@ const Calendar = ({ route }) => {
                   setSelectedSlot(time);
                 }}
               >
-                <Text fontSize={14} fontWeight="600">
+                <Text fontSize={14} fontWeight="600" color="black">
                   {time}
                 </Text>
               </Button>
