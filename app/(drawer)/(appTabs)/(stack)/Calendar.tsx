@@ -17,11 +17,14 @@ import { useCreateAppointment } from "@/core/react-query/appointments/hooks/useC
 import { FormValues } from "./_layout";
 import { useLocalSearchParams } from "expo-router";
 import { LinearGradient } from "@/components/expo/LinearGradient";
+import { useToast } from "@/components/useToast";
 
 const Calendar = ({ route }) => {
   const [selectedSlot, setSelectedSlot] = useState("");
   const [currentDay, setCurrentDay] = useState(moment());
   const [currentWeek, setCurrentWeek] = useState(moment().startOf("week"));
+
+  const { SuccessToast, ErrorToast } = useToast();
 
   const createAppointment = useCreateAppointment();
   const { data, isLoading } = useGetAllAppointments();
@@ -123,10 +126,10 @@ const Calendar = ({ route }) => {
   const onSubmit = handleSubmit((data) => {
     createAppointment.mutate(data, {
       onSuccess: () => {
-        console.log("Appointment created successfully");
+        SuccessToast("Appointment scheduled");
       },
       onError: (e) => {
-        console.log("Error creating appointment");
+        ErrorToast(`Error ${e}`);
       },
     });
   });

@@ -10,6 +10,7 @@ import {
   ScrollView,
   Adapt,
   Sheet,
+  View,
 } from "tamagui";
 import { LinearGradient } from "./expo/LinearGradient";
 import { useEffect } from "react";
@@ -87,7 +88,7 @@ export const CreateUpdateTreatment = () => {
             router.back();
           },
           onError: (e) => {
-            SuccessToast(`Error ${e}`);
+            ErrorToast(`Error ${e}`);
 
             router.back();
           },
@@ -103,7 +104,7 @@ export const CreateUpdateTreatment = () => {
             router.back();
           },
           onError: (e) => {
-            SuccessToast(`Error ${e}`);
+            ErrorToast(`Error ${e}`);
 
             router.back();
           },
@@ -123,7 +124,7 @@ export const CreateUpdateTreatment = () => {
         keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
         style={{ flex: 1 }}
       >
-        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <View>
           <YStack mt={20} alignItems="center" justifyContent="center">
             <Card
               width="80%"
@@ -282,7 +283,7 @@ export const CreateUpdateTreatment = () => {
               </XStack>
             </Card>
           </YStack>
-        </ScrollView>
+        </View>
       </KeyboardAvoidingView>
     </LinearGradient>
   );
