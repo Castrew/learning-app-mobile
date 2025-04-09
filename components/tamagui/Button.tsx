@@ -1,5 +1,5 @@
-import { Button as TamaguiButton, Text } from "tamagui";
+import { ButtonProps, Button as TamaguiButton } from "tamagui";
 
-export const Button = (props) => {
+export const Button = (props: ButtonProps) => {
   return <TamaguiButton opacity={props?.disabled ? 0.5 : 1} {...props} />;
 };

@@ -26,7 +26,7 @@ export default function TabTwoScreen() {
   });
 
   return (
-    <View w="100vw" h="100%">
+    <View flex={1}>
       <FormProvider {...formContext}>
         <Stack
           screenOptions={{

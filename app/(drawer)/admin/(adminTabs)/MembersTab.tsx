@@ -1,10 +1,5 @@
-// import { CreateUpdateTreatment } from "@/components/CreateUpdateTreatment";
-// import { Text, View } from "tamagui";
+import MembersScreen from "@/components/MembersScreen";
 
-// export default function AdminMembersTab() {
-//   return (
-//     <View w="100vw" h="100%">
-//       <MembersScreen />
-//     </View>
-//   );
-// }
+export default function AdminMembersTab() {
+  return <MembersScreen />;
+}

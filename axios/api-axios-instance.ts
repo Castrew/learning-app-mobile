@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_ROUTE = "http://192.168.1.101:3000/api";
+const API_ROUTE = "http://192.168.0.129:3000/api";
 
 const APIAxiosInstance = axios.create({ baseURL: API_ROUTE });
 

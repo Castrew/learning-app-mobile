@@ -53,7 +53,6 @@ function RootLayoutNav() {
   return (
     <Providers>
       <Stack>
-        {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> */}
         <Stack.Screen
           name="(drawer)"
           options={{
