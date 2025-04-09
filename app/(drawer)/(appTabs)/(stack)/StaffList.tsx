@@ -43,10 +43,9 @@ const StaffList = () => {
                       field.value === member.id ? "pink" : "gray"
                     }
                     onPress={() => {
-                      const JSONmember = JSON.stringify(member);
                       field.onChange(member.id);
                       router.push({
-                        pathname: "/(drawer)/(stack)/TreatmentList",
+                        pathname: "/(drawer)/(appTabs)/(stack)/TreatmentList",
                         params: { member: JSON.stringify(member) },
                       });
                     }}
