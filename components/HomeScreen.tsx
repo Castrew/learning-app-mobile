@@ -7,7 +7,7 @@ const HomeScreen = () => {
   const { user } = useSession();
   return (
     <LinearGradient>
-      <ScrollView h="100%">
+      <ScrollView flex={1}>
         <YStack gap={20} alignItems="center">
           <View alignItems="center">
             <Text fontSize={25} fontWeight="bold">

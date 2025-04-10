@@ -5,7 +5,12 @@ import Colors from "@/constants/Colors";
 import { useColorScheme } from "@/components/useColorScheme";
 import { useClientOnlyValue } from "@/components/useClientOnlyValue";
 import { Button, View } from "tamagui";
-import { AlignLeft, LogOut } from "@tamagui/lucide-icons";
+import {
+  AlignLeft,
+  LogOut,
+  CalendarDays,
+  Sparkles,
+} from "@tamagui/lucide-icons";
 import { useSession } from "@/session/SessionProvier";
 import LoginWithGoogle from "@/components/LoginWithGoogle";
 import moment from "moment";
@@ -64,9 +69,12 @@ export default function TabLayout() {
             }
           },
           headerLeft: () => (
-            <Button onPress={() => navigation.toggleDrawer()}>
-              <AlignLeft />
-            </Button>
+            <Button
+              unstyled
+              ml={10}
+              icon={<AlignLeft size="$2" color="black" />}
+              onPress={() => navigation.toggleDrawer()}
+            />
           ),
         })}
       />
@@ -74,7 +82,7 @@ export default function TabLayout() {
         name="Treatments"
         options={{
           title: "Treatments",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <Sparkles color={color} />,
         }}
       />
       <Tabs.Screen
@@ -82,7 +90,7 @@ export default function TabLayout() {
         options={{
           title: "Booking",
           headerShown: false,
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <CalendarDays color={color} />,
         }}
       />
     </Tabs>

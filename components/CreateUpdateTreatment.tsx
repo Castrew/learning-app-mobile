@@ -7,7 +7,6 @@ import {
   Select,
   Text,
   Card,
-  ScrollView,
   Adapt,
   Sheet,
   View,
@@ -17,7 +16,6 @@ import { useEffect } from "react";
 import { useCreateTreatment } from "@/core/react-query/treatments/hooks/useCreateTreatment";
 import { useGetOneTreatment } from "@/core/react-query/treatments/hooks/useGetOneTreatment";
 import { useUpdateTreatment } from "@/core/react-query/treatments/hooks/useUpdateTreatment";
-import { Treatment } from "@/core/react-query/treatments/types";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { DURATION_TIME } from "@/constants/schedule";
@@ -28,7 +26,7 @@ type LocalSearchParamsProps = {
   treatmentId: string;
 };
 
-export interface FormValues {
+interface FormValues {
   userId: string;
   title: string;
   duration: string;
@@ -54,11 +52,9 @@ export const CreateUpdateTreatment = () => {
   };
 
   const {
-    register,
     handleSubmit,
     reset,
     control,
-    watch,
     formState: { errors },
   } = useForm<FormValues>({
     defaultValues,

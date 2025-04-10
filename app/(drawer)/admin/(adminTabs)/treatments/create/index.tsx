@@ -1,9 +1,9 @@
 import { CreateUpdateTreatment } from "@/components/CreateUpdateTreatment";
 import { Text, View } from "tamagui";
 
-export default function AdminCreateTreatment() {
+export default function AdminCreateTreatmentScreen() {
   return (
-    <View w="100vw" h="100%">
+    <View flex={1}>
       <CreateUpdateTreatment />
     </View>
   );

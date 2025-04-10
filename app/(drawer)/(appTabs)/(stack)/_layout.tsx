@@ -4,6 +4,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { Button } from "@/components/tamagui/Button";
 import { Stack } from "expo-router";
 import { useSession } from "@/session/SessionProvier";
+import { ArrowLeft } from "@tamagui/lucide-icons";
 
 export interface FormValues {
   userId: string;
@@ -26,7 +27,7 @@ export default function TabTwoScreen() {
   });
 
   return (
-    <View w="100vw" h="100%">
+    <View flex={1}>
       <FormProvider {...formContext}>
         <Stack
           screenOptions={{
@@ -39,13 +40,16 @@ export default function TabTwoScreen() {
             options={({ navigation }) => ({
               headerLeft: (props) => (
                 <Button
+                  backgroundColor={"whitesmoke"}
+                  height={40}
+                  ml={10}
+                  mb={5}
+                  icon={<ArrowLeft size="$1" />}
                   onPress={() => {
                     formContext.setValue("treatmentIds", []),
                       navigation.goBack();
                   }}
-                >
-                  Back
-                </Button>
+                />
               ),
             })}
           />
@@ -54,14 +58,17 @@ export default function TabTwoScreen() {
             options={({ navigation }) => ({
               headerLeft: (props) => (
                 <Button
+                  backgroundColor={"whitesmoke"}
+                  height={40}
+                  ml={10}
+                  mb={5}
+                  icon={<ArrowLeft size="$1" />}
                   onPress={() => {
                     formContext.setValue("date", ""),
                       formContext.setValue("start", ""),
                       navigation.goBack();
                   }}
-                >
-                  Back
-                </Button>
+                />
               ),
             })}
           />

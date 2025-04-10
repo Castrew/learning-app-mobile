@@ -5,6 +5,7 @@ import { useRouter } from "expo-router";
 import { useNavigation } from "expo-router";
 import { useEffect } from "react";
 import { LinearGradient } from "@/components/expo/LinearGradient";
+import dogImage from "@/assets/images/dog.png";
 
 const StaffList = () => {
   const { control } = useFormContext();
@@ -43,10 +44,9 @@ const StaffList = () => {
                       field.value === member.id ? "pink" : "gray"
                     }
                     onPress={() => {
-                      const JSONmember = JSON.stringify(member);
                       field.onChange(member.id);
                       router.push({
-                        pathname: "/(drawer)/(stack)/TreatmentList",
+                        pathname: "/(drawer)/(appTabs)/(stack)/TreatmentList",
                         params: { member: JSON.stringify(member) },
                       });
                     }}
@@ -58,11 +58,7 @@ const StaffList = () => {
                         borderTopLeftRadius: 15,
                         borderTopRightRadius: 15,
                       }}
-                      source={
-                        // treatment.image
-                        //   ? { uri: treatment.image }:
-                        require("../../../../assets/images/not-available.jpg")
-                      }
+                      source={dogImage}
                       resizeMode="cover"
                     />
                     <Card.Footer

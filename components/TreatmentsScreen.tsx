@@ -53,19 +53,8 @@ export const TreatmentsScreen = () => {
   }
 
   return (
-    <View w="100vw" h="100%">
+    <View flex={1}>
       <LinearGradient>
-        {pathname === "/admin" && (
-          <View p={10} mt={10}>
-            <Button
-              onPress={() =>
-                router.push("/(drawer)/admin/(adminTabs)/treatments/create")
-              }
-            >
-              Create new treatment
-            </Button>
-          </View>
-        )}
         <ScrollView style={{ flex: 1, paddingHorizontal: 16 }}>
           <YStack space={20} alignItems="center" mt={10} mb={10}>
             {data?.map((treatment) => (
