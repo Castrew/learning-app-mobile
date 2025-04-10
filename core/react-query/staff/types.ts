@@ -1,7 +1,7 @@
 import { Treatment } from "../treatments/types";
 
 export type Staff = {
-  id: string;
+  id?: string;
   name: string;
   treatments: Treatment[];
 };

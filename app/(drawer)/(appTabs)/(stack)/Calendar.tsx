@@ -19,7 +19,7 @@ import { useLocalSearchParams } from "expo-router";
 import { LinearGradient } from "@/components/expo/LinearGradient";
 import { useToast } from "@/components/useToast";
 
-const Calendar = ({ route }) => {
+const Calendar = () => {
   const [selectedSlot, setSelectedSlot] = useState("");
   const [currentDay, setCurrentDay] = useState(moment());
   const [currentWeek, setCurrentWeek] = useState(moment().startOf("week"));
@@ -212,7 +212,7 @@ const Calendar = ({ route }) => {
             );
           })}
         </Stack>
-        <Button mt={20} onPress={onSubmit}>
+        <Button disabled={selectedSlot === ""} mt={20} onPress={onSubmit}>
           Set Appointment
         </Button>
       </View>

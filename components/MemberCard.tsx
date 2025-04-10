@@ -5,6 +5,7 @@ import dogImage from "@/assets/images/dog.png";
 import { useDeleteStaff } from "@/core/react-query/staff/hooks/useDeleteStaff";
 import { useToast } from "./useToast";
 import { ConfirmationSheetButton } from "./tamagui/ConfirmationSheetButton";
+import { router } from "expo-router";
 
 type MemberCardProps = {
   member: Staff;
@@ -41,7 +42,14 @@ export const MemberCard: React.FC<MemberCardProps> = ({ member }) => {
       </Card.Header>
       <Card.Footer padded>
         <XStack flex={1} />
-        <Button borderRadius="$10">Edit</Button>
+        <Button
+          onPress={() =>
+            router.push(`/(drawer)/admin/(adminTabs)/staff/${member.id}`)
+          }
+          borderRadius="$10"
+        >
+          Edit
+        </Button>
         <ConfirmationSheetButton
           label="Delete"
           message="Do you want to delete this member?"

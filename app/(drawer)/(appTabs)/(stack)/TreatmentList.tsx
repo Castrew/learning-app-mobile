@@ -17,16 +17,17 @@ const TreatmentsList = ({ route, navigation }) => {
   return (
     <LinearGradient>
       <View>
-        <YStack width={300} alignItems="center" gap="$2">
+        <YStack mt={10} width={300} alignItems="center" gap="$2">
           {treatment?.map((treatment) => (
             <Controller
               key={treatment.id}
               name="treatmentIds"
               control={control}
               render={({ field }) => (
-                <XStack width={300} alignItems="center" gap="$2">
+                <XStack ml={20} width={300} alignItems="center" gap="$2">
                   <Checkbox
-                    size="$4"
+                    backgroundColor={"whitesmoke"}
+                    size="$6"
                     checked={field.value.includes(treatment.id)}
                     onCheckedChange={(checked) => {
                       const newValues = checked
@@ -46,10 +47,12 @@ const TreatmentsList = ({ route, navigation }) => {
           ))}
         </YStack>
         <Button
+          mt={10}
           disabled={isTreatmentSelected === 0}
+          backgroundColor={isTreatmentSelected === 0 ? "" : "whitesmoke"}
           onPress={() =>
             router.push({
-              pathname: "/(drawer)/(stack)/Calendar",
+              pathname: "/(drawer)/(appTabs)/(stack)/Calendar",
               params: { member },
             })
           }

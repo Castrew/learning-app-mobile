@@ -19,6 +19,7 @@ const AdminTabLayout = () => {
         tabBarStyle: { backgroundColor: "#D1E0F9" },
       }}
     >
+      {/* Shown Tabs */}
       <Tabs.Screen
         name="index"
         options={({ navigation }) => ({
@@ -46,6 +47,35 @@ const AdminTabLayout = () => {
           tabBarIcon: ({ color }) => <Sparkles color={color} />,
         })}
       />
+
+      <Tabs.Screen
+        name="MembersTab"
+        options={({ navigation }) => ({
+          title: "Staff",
+          headerLeft: () => (
+            <Button
+              unstyled
+              ml={10}
+              icon={<AlignLeft size="$2" color="black" />}
+              onPress={() => navigation.toggleDrawer()}
+            />
+          ),
+          headerRight: () => (
+            <Button
+              mb={10}
+              mr={15}
+              backgroundColor={"whitesmoke"}
+              circular
+              icon={<Plus size={20} />}
+              onPress={() =>
+                router.push("/(drawer)/admin/(adminTabs)/staff/create")
+              }
+            />
+          ),
+          tabBarIcon: () => <Contact />,
+        })}
+      />
+      {/* Hidden Tabs */}
       <Tabs.Screen
         name="treatments/create/index"
         options={{
@@ -83,29 +113,44 @@ const AdminTabLayout = () => {
         }}
       />
       <Tabs.Screen
-        name="MembersTab"
-        options={({ navigation }) => ({
-          title: "Members",
+        name="staff/[staffId]/index"
+        options={{
+          title: "Update Member",
+          href: null,
+          tabBarStyle: { display: "none" },
           headerLeft: () => (
             <Button
-              unstyled
-              ml={10}
-              icon={<AlignLeft size="$2" color="black" />}
-              onPress={() => navigation.toggleDrawer()}
-            />
-          ),
-          headerRight: () => (
-            <Button
-              mb={10}
-              mr={15}
               backgroundColor={"whitesmoke"}
-              circular
-              icon={<Plus size={20} />}
-              onPress={() => console.log("Create member page")}
+              height={40}
+              ml={10}
+              mb={5}
+              icon={<ArrowLeft size="$1" />}
+              onPress={() =>
+                router.push("/(drawer)/admin/(adminTabs)/MembersTab")
+              }
             />
           ),
-          tabBarIcon: () => <Contact />,
-        })}
+        }}
+      />
+      <Tabs.Screen
+        name="staff/create/index"
+        options={{
+          title: "Add Member",
+          href: null,
+          tabBarStyle: { display: "none" },
+          headerLeft: () => (
+            <Button
+              backgroundColor={"whitesmoke"}
+              height={40}
+              ml={10}
+              mb={5}
+              icon={<ArrowLeft size="$1" />}
+              onPress={() =>
+                router.push("/(drawer)/admin/(adminTabs)/MembersTab")
+              }
+            />
+          ),
+        }}
       />
     </Tabs>
   );
